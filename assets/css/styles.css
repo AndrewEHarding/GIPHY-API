@@ -1,0 +1,10 @@
+.form-control {
+    max-width: 300px;
+}
+
+.col {
+    border: 3px double gray;
+    border-radius: 5px;
+    padding: 10px 15px 15px 15px;
+    margin: 20px 20px 0px 0px;
+}
