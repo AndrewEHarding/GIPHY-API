@@ -2,9 +2,8 @@ $(document).ready(function () {
 
     var $input = $("#input");
     var $buttonsDiv = $("#buttons-div");
-    var $gifDiv = $("#gif-div");
+    var $gifCon = $("#gif-container");
     var topics = ["dogs", "frogs", "pogs"];
-    rating = "G";
 
     // =====MAKE BUTTONS=====
     function makeButtons() {
@@ -22,6 +21,15 @@ $(document).ready(function () {
     $(document).on("click", ".gif-btn", function () {
         console.log("GIF-Button clicked!");
         var topic = $(this).attr("data-name");
+        var rating;
+        var number; //If I have time I'll make a option form for number of returned gifs
+
+        // =====SET RATING=====
+        if ($('input[type=checkbox]').prop('checked')) { rating = "PG"; }
+        else { rating = "G"; }
+
+        console.log("Rated " + rating + "!");
+
         var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=Jj47hCPEGT6ulhzD7CW8qe36BtExI3qR&q="
             + topic
             + "&limit=10&rating="
@@ -33,10 +41,22 @@ $(document).ready(function () {
             method: "GET"
         })
             .then(function (response) {
-                $gifDiv.empty();
+                $gifCon.empty();
                 var results = response.data;
                 console.log(results);
+                // Create GIFs
+                for (var i = 0; i < results.length; i++) {
+                    var gifDiv = $("<div>").addClass("gif-div mt-2 ml-2 bg-secondary");
+                    var h3 = $("<h5>").text("This GIF is Rated: " + results[i].rating).addClass("rating p-2 text-light");
+                    var gif = $("<img>").addClass("gif");
+                    gif.attr("src", results[i].images.fixed_height_still.url);
+                    gif.attr("data-still", results[i].images.fixed_height_still.url);
+                    gif.attr("data-animate", results[i].images.fixed_height.url);
+                    gifDiv.prepend(h3);
+                    gifDiv.prepend(gif);
+                    $gifCon.prepend(gifDiv);
 
+                }
             });
 
     });
@@ -51,6 +71,11 @@ $(document).ready(function () {
             makeButtons();
         }
     });
+
+    // $("#hardcore-box").on("checked", function(){
+    //     rating = "PG";
+    //     console.log(rating);
+    // });
 
 });
 
