@@ -2,8 +2,12 @@ h1, h2, h3, h4, h5, h6 {
     margin: 0;
 }
 
-.form-control {
+#input {
     max-width: 300px;
+}
+
+#myselect {
+    max-width: 180px;
 }
 
 .my-div {

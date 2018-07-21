@@ -22,7 +22,7 @@ $(document).ready(function () {
         console.log("GIF-Button clicked!");
         var topic = $(this).attr("data-name");
         var rating;
-        var number; //If I have time I'll make a option form for number of returned gifs
+        var number = $("#myselect").val();
 
         // =====SET RATING=====
         if ($('input[type=checkbox]').prop('checked')) { rating = "PG"; }
@@ -32,7 +32,9 @@ $(document).ready(function () {
 
         var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=Jj47hCPEGT6ulhzD7CW8qe36BtExI3qR&q="
             + topic
-            + "&limit=10&rating="
+            + "&limit="
+            + number
+            "&rating="
             + rating;
 
         // =====AJAX QUERY=====
@@ -50,6 +52,7 @@ $(document).ready(function () {
                     var h3 = $("<h5>").text("This GIF is Rated: " + results[i].rating).addClass("rating p-2 text-light");
                     var gif = $("<img>").addClass("gif");
                     gif.attr("src", results[i].images.fixed_height_still.url);
+                    gif.attr("data-state", "still");
                     gif.attr("data-still", results[i].images.fixed_height_still.url);
                     gif.attr("data-animate", results[i].images.fixed_height.url);
                     gifDiv.prepend(h3);
@@ -59,6 +62,18 @@ $(document).ready(function () {
                 }
             });
 
+    });
+
+    $(document).on("click", ".gif", function () {
+        var state = $(this).attr("data-state");
+        if (state === "still") {
+            $(this).attr("src", $(this).attr("data-animate"));
+            $(this).attr("data-state", "animate");
+        }
+        else {
+            $(this).attr("src", $(this).attr("data-still"));
+            $(this).attr("data-state", "still");
+        }
     });
 
     $input.next().on("click", function (event) {
@@ -72,10 +87,9 @@ $(document).ready(function () {
         }
     });
 
-    // $("#hardcore-box").on("checked", function(){
-    //     rating = "PG";
-    //     console.log(rating);
-    // });
+    $("#clear").on("click", function(){
+        $gifCon.empty();
+    });
 
 });
 
