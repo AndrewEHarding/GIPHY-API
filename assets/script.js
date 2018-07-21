@@ -6,25 +6,6 @@ $(document).ready(function () {
     var topics = ["dogs", "frogs", "pogs"];
     rating = "G";
 
-    var topic = $(this).attr("data-name");
-    var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=Jj47hCPEGT6ulhzD7CW8qe36BtExI3qR&q="
-        + topic
-        + "&limit=10&rating="
-        + rating;
-
-    // =====AJAX QUERY=====
-    $.ajax({
-        url: queryURL,
-        method: "GET"
-    })
-        .then(function (response) {
-            console.log(response);
-            results = response.data;
-            console.log(results);
-            $gifDiv.empty();
-
-        });
-
     // =====MAKE BUTTONS=====
     function makeButtons() {
         $buttonsDiv.empty();
@@ -40,6 +21,24 @@ $(document).ready(function () {
 
     $(document).on("click", ".gif-btn", function () {
         console.log("GIF-Button clicked!");
+        var topic = $(this).attr("data-name");
+        var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=Jj47hCPEGT6ulhzD7CW8qe36BtExI3qR&q="
+            + topic
+            + "&limit=10&rating="
+            + rating;
+
+        // =====AJAX QUERY=====
+        $.ajax({
+            url: queryURL,
+            method: "GET"
+        })
+            .then(function (response) {
+                $gifDiv.empty();
+                var results = response.data;
+                console.log(results);
+
+            });
+
     });
 
     $input.next().on("click", function (event) {

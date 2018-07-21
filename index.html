@@ -18,15 +18,23 @@
 
     <div class="container">
         <div class="row">
-            <div class="col">
+            <div class="my-div col">
                 <form>
                     <input type="text" class="form-control mt-2 ml-2" id="input" placeholder="Add your own topic here...">
                     <button type="submit" class="btn mt-2 ml-2">Add</button>
                 </form>
+                <div class="form-check mt-2 ml-2">
+                    <input class="form-check-input" type="checkbox" value="" id="hardcore-box">
+                    <label class="form-check-label" for="hardcore-box">
+                        Hardcore Mode
+                    </label>
+                    <!-- It just changes the rating from G to PG, promise -->
+                </div>
                 <div id="buttons-div"></div>
             </div>
 
-            <div class="col">
+            <div class="my-div col">
+                <button type="button" class="btn mt-2 ml-2" id="clear">Clear</button>
                 <div id="gif-div"></div>
             </div>
         </div>
