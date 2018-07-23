@@ -3,7 +3,7 @@ $(document).ready(function () {
     var $input = $("#input");
     var $buttonsDiv = $("#buttons-div");
     var $gifCon = $("#gif-container");
-    var topics = ["dogs", "frogs", "pogs"];
+    var topics = ["star trek", "uss enterprise", "spock", "kirk", "phaser", "klingon"];
 
     // =====MAKE BUTTONS=====
     function makeButtons() {
@@ -34,7 +34,7 @@ $(document).ready(function () {
             + topic
             + "&limit="
             + number
-            "&rating="
+            + "&rating="
             + rating;
 
         // =====AJAX QUERY=====
